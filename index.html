@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <center><div class="todo"><h1>TodoMatic</h1></div></center>
+    <center><div class="alttext">What needs to be done?</div></center>
+    <center><div><input type="text" placeholder="Enter your task..." id="taskentry"></div></center>
+    <center><div><button id="addbtn" onclick="addTask()">Add</button></div></center>
+    <center>
+        <div class="stuff">
+            <button class="action">All</button>
+            <button class="action">Active</button>
+            <button class="action" id="complete">Completed</button>
+        </div>
+    </center>
+    <div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

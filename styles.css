@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.todo {
+    color: white;
+    margin: auto;
+}
+
+.alttext {
+    color: white;
+    margin: auto;
+}
+
+#taskentry {
+    padding: 10px;
+    color: black;
+    margin: 5px;
+    border-radius: 5px;
+    width: 80%;
+    border: none;
+}
+
+#addbtn {
+    width: 80%;
+    margin: 5px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    color: black;
+}
+
+.stuff {
+    width: 60%;
+    padding: 10px;
+}
+
+.action {
+    padding: 18px;
+    border-radius: 8px;
+    border: none;
+    margin: 5px auto;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: grey;
+}
+/* .completed {
+    text-decoration: line-through;
+    color: grey;
+} */
+input[type="checkbox"] {
+    margin-right: 10px;
+}
