@@ -1,5 +1,4 @@
 let tasks = [];
-
 function addTask() {
     let taskentry = document.getElementById("taskentry").value;
     if (taskentry.trim() === "") return;
@@ -9,9 +8,9 @@ function addTask() {
         name: taskentry,
         completed: false
     };
-    tasks.push(tasksObj);
-
+        tasks.push(tasksObj);
     let taskList = document.getElementById("taskList");
+
     let li = document.createElement("li");
 
     let checkbox = document.createElement("input");
@@ -27,29 +26,39 @@ function addTask() {
 
     let removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
+    
     removeButton.onclick = function() {
-        tasks = tasks.filter(task => task.name !== taskentry);
-        taskList.removeChild(li);
+        tasks = tasks.filter(task => task.name !== taskentry); 
+        taskList.removeChild(li); 
     };
 
     li.appendChild(checkbox);
     li.appendChild(taskText);
     li.appendChild(removeButton);
+
     taskList.appendChild(li);
 }
 
-let completedBtn = document.getElementById("complete");
-completedBtn.addEventListener("click", function() {
-    let completedTasks = tasks.filter(task => task.completed); 
+function filterTasks(filterType) {
     let taskList = document.getElementById("taskList");
-    
-    taskList.innerHTML = "";
+    taskList.innerHTML = ""; 
+    let filteredTasks = [];
 
-    completedTasks.forEach(task => {
+    if (filterType === "All") {
+        filteredTasks = tasks;
+    } else if (filterType === "Active") {
+        filteredTasks = tasks.filter(task => !task.completed);
+    } else if (filterType === "Completed") {
+        filteredTasks = tasks.filter(task => task.completed);
+    }
+
+    filteredTasks.forEach(task => {
         let li = document.createElement("li");
+
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.checked = true;
+        checkbox.checked = task.completed;
+
         let taskText = document.createElement("span");
         taskText.textContent = task.name;
 
@@ -58,4 +67,20 @@ completedBtn.addEventListener("click", function() {
 
         taskList.appendChild(li);
     });
+}
+
+let allBtn = document.querySelector(".action:nth-child(1)");
+let activeBtn = document.querySelector(".action:nth-child(2)");
+let completedBtn = document.getElementById("complete");
+
+allBtn.addEventListener("click", function() {
+    filterTasks("All");
+});
+
+activeBtn.addEventListener("click", function() {
+    filterTasks("Active");
+});
+
+completedBtn.addEventListener("click", function() {
+    filterTasks("Completed");
 });
