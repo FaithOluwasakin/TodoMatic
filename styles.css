@@ -1,85 +1,36 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
-}
-
-.todo {
-    color: white;
-    margin: auto;
-}
-
-.alttext {
-    color: white;
-    margin: auto;
-}
-
-#taskentry {
-    padding: 10px;
-    color: black;
-    margin: 5px;
-    border-radius: 5px;
-    width: 80%;
-    border: none;
-}
-
-#addbtn {
-    width: 80%;
-    margin: 5px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-    border: none;
-    color: black;
-}
-
-.stuff {
-    width: 60%;
-    padding: 10px;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 .action {
-    padding: 18px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    margin-right: 5px;
+    border-radius: 5px;
     border: none;
-    margin: 5px auto;
-}
-
-button:hover {
+    background-color: #ddd;
     cursor: pointer;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.action.active {
+    background-color: #007bff;
+    color: white;
 }
 
-li {
-    margin: 10px 0;
-    background-color: #333;
+ul li {
     padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
-button {
-    padding: 5px 10px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: grey;
-}
-/* .completed {
+.completed {
     text-decoration: line-through;
-    color: grey;
-} */
-input[type="checkbox"] {
-    margin-right: 10px;
+}
+
+.overdue {
+    background-color: #ffcccc !important;
 }

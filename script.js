@@ -1,86 +1,84 @@
 let tasks = [];
+
 function addTask() {
-    let taskentry = document.getElementById("taskentry").value;
-    if (taskentry.trim() === "") return;
+    const taskName = document.getElementById("taskentry").value.trim();
+    const dueDate = document.getElementById("duedate").value;
+
+    const task = {
+        id: Date.now(),
+        name: taskName,
+        completed: false,
+        dueDate: new Date(dueDate)
+    };
+
+    tasks.push(task);
     document.getElementById("taskentry").value = "";
-
-    let tasksObj = {
-        name: taskentry,
-        completed: false
-    };
-        tasks.push(tasksObj);
-    let taskList = document.getElementById("taskList");
-
-    let li = document.createElement("li");
-
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-
-    let taskText = document.createElement("span");
-    taskText.textContent = taskentry;
-
-    checkbox.addEventListener("click", function() {
-        li.classList.toggle("completed");
-        tasksObj.completed = checkbox.checked;
-    });
-
-    let removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    
-    removeButton.onclick = function() {
-        tasks = tasks.filter(task => task.name !== taskentry); 
-        taskList.removeChild(li); 
-    };
-
-    li.appendChild(checkbox);
-    li.appendChild(taskText);
-    li.appendChild(removeButton);
-
-    taskList.appendChild(li);
+    document.getElementById("duedate").value = "";
+    renderTasks('All'); 
+    localStorage.setItem('csvData', JSON.stringify(tasks));
 }
 
-function filterTasks(filterType) {
-    let taskList = document.getElementById("taskList");
-    taskList.innerHTML = ""; 
-    let filteredTasks = [];
+function renderTasks(filterType = "All") {
+    console.log("Rendering tasks with filter:", filterType);
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
 
-    if (filterType === "All") {
-        filteredTasks = tasks;
-    } else if (filterType === "Active") {
+    let filteredTasks = tasks;
+
+    if (filterType === "Undone") {
         filteredTasks = tasks.filter(task => !task.completed);
     } else if (filterType === "Completed") {
         filteredTasks = tasks.filter(task => task.completed);
     }
 
-    filteredTasks.forEach(task => {
-        let li = document.createElement("li");
+    console.log("Filtered tasks:", filteredTasks);
 
-        let checkbox = document.createElement("input");
+    filteredTasks.forEach((task) => {
+        const li = document.createElement("li");
+        const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
 
-        let taskText = document.createElement("span");
-        taskText.textContent = task.name;
+        checkbox.addEventListener("change", () => {
+            task.completed = checkbox.checked;
+            renderTasks(filterType);  
+            localStorage.setItem('csvData', JSON.stringify(tasks));
+        });
+
+        const taskText = document.createElement("span");
+        taskText.textContent = `${task.name} (Due: ${task.dueDate.toLocaleString()})`;
+        if (new Date(task.dueDate) < new Date() && !task.completed) {
+            li.classList.add("overdue");
+        }
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.style.marginLeft = "10px";
+        removeButton.addEventListener("click", () => {
+            tasks = tasks.filter(t => t.id !== task.id);
+            renderTasks(filterType);  
+            localStorage.setItem('csvData', JSON.stringify(tasks));
+        });
 
         li.appendChild(checkbox);
         li.appendChild(taskText);
-
+        li.appendChild(removeButton);
         taskList.appendChild(li);
     });
 }
 
-let allBtn = document.querySelector(".action:nth-child(1)");
-let activeBtn = document.querySelector(".action:nth-child(2)");
-let completedBtn = document.getElementById("complete");
+function loadData() {
+    const savedData = JSON.parse(localStorage.getItem('csvData'));
+    if (savedData) {
+        tasks = savedData;
+        renderTasks('All');
+    }
+}
 
-allBtn.addEventListener("click", function() {
-    filterTasks("All");
-});
+window.onload = function() {
+    loadData();
 
-activeBtn.addEventListener("click", function() {
-    filterTasks("Active");
-});
-
-completedBtn.addEventListener("click", function() {
-    filterTasks("Completed");
-});
+    document.getElementById("allbtn").addEventListener("click", () => renderTasks('All'));
+    document.getElementById("undonebtn").addEventListener("click", () => renderTasks('Undone'));
+    document.getElementById("completebtn").addEventListener("click", () => renderTasks('Completed'));
+};

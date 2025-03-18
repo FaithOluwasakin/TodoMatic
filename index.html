@@ -7,21 +7,23 @@
     <title>Todo List</title>
 </head>
 <body>
-    <center><div class="todo"><h1>TodoMatic</h1></div></center>
-    <center><div class="alttext">What needs to be done?</div></center>
-    <center><div><input type="text" placeholder="Enter your task..." id="taskentry"></div></center>
-    <center><div><button id="addbtn" onclick="addTask()">Add</button></div></center>
-    <center>
-        <div class="stuff">
-            <button class="action">All</button>
-            <button class="action">Undone</button>
-            <button class="action" id="complete">Completed</button>
-        </div>
-    </center>
-    <div>
-        <ul id="taskList"></ul>
+    <h1 style="text-align: center;">Todo List</h1>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+        <input type="text" id="taskentry" placeholder="Enter your task..." style="padding: 10px; width: 50%;">
+        <input type="datetime-local" id="duedate" style="padding: 10px;">
+        <button onclick="addTask()" style="padding: 10px;">Add Task</button>
     </div>
 
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button class="action" id="allbtn">All</button>
+        <button class="action" id="undonebtn">Undone</button>
+        <button class="action" id="completebtn">Completed</button>
+    </div>
+
+    <ul id="taskList" style="list-style-type: none; padding: 0; max-width: 600px; margin: auto;"></ul>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
